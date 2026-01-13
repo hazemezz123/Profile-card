@@ -219,6 +219,7 @@ body {
 }
 
 .social-row {
+  margin-bottom: 25px;
   display: flex;
   gap: 15px;
 }
@@ -252,19 +253,43 @@ body {
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.totw-card:hover {
-  transform: translateY(-15px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(226, 192, 119, 0.3);
+/* Shine Effect Overlay */
+.totw-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.1) 60%,
+    transparent 70%
+  );
+  transform: skewX(-20deg);
+  z-index: 15;
+  pointer-events: none;
+  animation: holographicShine 3s infinite linear;
 }
 
-/* Shine Effect */
-.totw-card::before {
-  /* Extending the texture layer to handle shine or adding a new layer */
-  /* Let's use a new pseudo on top if needed, but we have ::after for border. 
-       We can add a new div in HTML or just animate the texture opacity? 
-       Actually, let's just add a specific shine keyframe to the existing bg-texture or use a new method.
-       Easiest is to add a sheen element in HTML, but here we can try a radial gradient shift on hover.
-    */
+@keyframes holographicShine {
+  0% {
+    left: -150%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    left: 150%;
+    opacity: 0;
+  }
 }
 
 /* Let's make the border shimmer */
@@ -280,6 +305,6 @@ body {
   }
 }
 
-.totw-card:hover::after {
+.totw-card::after {
   animation: borderShimmer 2s infinite;
 }
